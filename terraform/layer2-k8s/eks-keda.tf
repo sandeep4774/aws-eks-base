@@ -13,7 +13,7 @@ locals {
 module "keda_namespace" {
   count = local.keda.enabled ? 1 : 0
 
-  source = "modules/kubernetes-namespace"
+  source = "./modules/kubernetes-namespace"
   name   = local.keda.namespace
   network_policies = [
     {

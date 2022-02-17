@@ -13,7 +13,7 @@ locals {
 module "reloader_namespace" {
   count = local.reloader.enabled ? 1 : 0
 
-  source = "modules/kubernetes-namespace"
+  source = "./modules/kubernetes-namespace"
   name   = local.reloader.namespace
   network_policies = [
     {

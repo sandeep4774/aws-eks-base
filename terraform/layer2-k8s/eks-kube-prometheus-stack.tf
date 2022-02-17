@@ -343,7 +343,7 @@ VALUES
 module "kube_prometheus_stack_namespace" {
   count = local.kube_prometheus_stack.enabled ? 1 : 0
 
-  source = "modules/kubernetes-namespace"
+  source = "./modules/kubernetes-namespace"
   name   = local.kube_prometheus_stack.namespace
   network_policies = concat([
     {
@@ -464,7 +464,7 @@ module "kube_prometheus_stack_namespace" {
 module "aws_iam_kube_prometheus_stack_grafana" {
   count = local.kube_prometheus_stack.enabled ? 1 : 0
 
-  source            = "modules/aws-iam-eks-trusted"
+  source            = "./modules/aws-iam-eks-trusted"
   name              = "${local.name}-grafana"
   region            = local.region
   oidc_provider_arn = local.eks_oidc_provider_arn

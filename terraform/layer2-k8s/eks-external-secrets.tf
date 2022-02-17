@@ -32,7 +32,7 @@ VALUES
 module "external_secrets_namespace" {
   count = local.external_secrets.enabled ? 1 : 0
 
-  source = "modules/kubernetes-namespace"
+  source = "./modules/kubernetes-namespace"
   name   = local.external_secrets.namespace
   network_policies = [
     {
@@ -81,7 +81,7 @@ module "external_secrets_namespace" {
 module "aws_iam_external_secrets" {
   count = local.external_secrets.enabled ? 1 : 0
 
-  source            = "modules/aws-iam-eks-trusted"
+  source            = "./modules/aws-iam-eks-trusted"
   name              = "${local.name}-${local.external_secrets.name}"
   region            = local.region
   oidc_provider_arn = local.eks_oidc_provider_arn

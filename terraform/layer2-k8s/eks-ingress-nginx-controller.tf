@@ -7,7 +7,7 @@ locals {
     chart_version = local.helm_releases[index(local.helm_releases.*.id, "ingress-nginx")].chart_version
     namespace     = local.helm_releases[index(local.helm_releases.*.id, "ingress-nginx")].namespace
   }
-  ssl_certificate_arn                         = var.nginx_ingress_ssl_terminator == "lb" ? data.terraform_remote_state.layer1-aws.outputs.ssl_certificate_arn : "ssl-certificate"
+  ssl_certificate_arn                         = var.nginx_ingress_ssl_terminator == "lb" ? var.ssl_certificate_arn : "ssl-certificate"
   ingress_nginx_general_values                = <<VALUES
 rbac:
   create: true
@@ -84,7 +84,7 @@ VALUES
 module "ingress_nginx_namespace" {
   count = local.ingress_nginx.enabled ? 1 : 0
 
-  source = "modules/kubernetes-namespace"
+  source = "./modules/kubernetes-namespace"
   name   = local.ingress_nginx.namespace
   network_policies = [
     {
