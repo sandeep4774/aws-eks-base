@@ -64,7 +64,7 @@ VALUES
 module "gitlab_runner_namespace" {
   count = local.gitlab_runner.enabled ? 1 : 0
 
-  source = "../modules/kubernetes-namespace"
+  source = "modules/kubernetes-namespace"
   name   = "gitlab-runner"
   network_policies = [
     {
@@ -157,7 +157,7 @@ resource "aws_s3_bucket_public_access_block" "gitlab_runner_cache_public_access_
 module "aws_iam_gitlab_runner" {
   count = local.gitlab_runner.enabled ? 1 : 0
 
-  source            = "../modules/aws-iam-eks-trusted"
+  source            = "modules/aws-iam-eks-trusted"
   name              = "${local.name}-${local.gitlab_runner.name}"
   region            = local.region
   oidc_provider_arn = local.eks_oidc_provider_arn

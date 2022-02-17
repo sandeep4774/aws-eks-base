@@ -4,5 +4,5 @@ include {
 
 dependency "layer1_aws" {
   config_path  = "../layer1-aws"
-  skip_outputs = true
+  skip_outputs = false
 }

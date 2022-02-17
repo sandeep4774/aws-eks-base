@@ -102,7 +102,7 @@ VALUES
 module "istio_system_namespace" {
   count = local.istio.enabled ? 1 : 0
 
-  source = "../modules/kubernetes-namespace"
+  source = "modules/kubernetes-namespace"
   name   = local.istio.namespace
   network_policies = concat([
     {
@@ -256,7 +256,7 @@ module "istio_system_namespace" {
 module "kiali_namespace" {
   count = local.kiali_server.enabled ? 1 : 0
 
-  source = "../modules/kubernetes-namespace"
+  source = "modules/kubernetes-namespace"
   name   = local.kiali_server.namespace
   network_policies = [
     {

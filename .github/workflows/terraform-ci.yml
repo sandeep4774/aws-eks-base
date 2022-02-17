@@ -99,28 +99,3 @@ jobs:
         name: l1
         failOnError: false
       if: ${{ always() }}
-
-  terraform-tfsec-l2:
-    name: 'Terraform-tfsec-l2'
-    needs: terraform-validate
-    runs-on: ubuntu-latest
-    container:
-      image: tfsec/tfsec
-      options: --user root
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Download init for l2
-      uses: actions/download-artifact@v2
-      with:
-        name: l2
-        path: ./terraform/layer2-k8s/.terraform
-    - name: Terraform tfsec l2
-      working-directory: ./terraform
-      run: tfsec layer2-k8s
-    - uses: geekyeggo/delete-artifact@v1
-      with:
-        name: l2
-        failOnError: false
-      if: ${{ always() }}
-

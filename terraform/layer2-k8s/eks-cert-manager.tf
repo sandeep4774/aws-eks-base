@@ -61,7 +61,7 @@ VALUES
 module "certmanager_namespace" {
   count = local.cert_manager.enabled ? 1 : 0
 
-  source = "../modules/kubernetes-namespace"
+  source = "modules/kubernetes-namespace"
   name   = local.cert_manager.namespace
   network_policies = [
     {
@@ -135,7 +135,7 @@ module "certmanager_namespace" {
 module "aws_iam_cert_manager" {
   count = local.cert_manager.enabled ? 1 : 0
 
-  source            = "../modules/aws-iam-eks-trusted"
+  source            = "modules/aws-iam-eks-trusted"
   name              = "${local.name}-${local.cert_manager.name}"
   region            = local.region
   oidc_provider_arn = local.eks_oidc_provider_arn
