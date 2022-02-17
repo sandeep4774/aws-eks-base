@@ -1,10 +1,14 @@
-locals{
-  remote_state_bucket = "${get_env("TF_REMOTE_STATE_BUCKET")}"
-}
+terragrunt_version_constraint = ">= 0.36"
+skip                          = true
 
-inputs = {
-  remote_state_bucket = local.remote_state_bucket
-  region              = local.region
+locals{
+
+  region_vars = read_terragrunt_config(find_in_parent_folders("region.hcl"))
+  environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
+
+  region              = local.region_vars.locals.region
+  environment         = local.environment_vars.locals.environment
+  remote_state_bucket = "${get_env("TF_REMOTE_STATE_BUCKET")}"
 }
 
 remote_state {
@@ -14,7 +18,7 @@ remote_state {
     if_exists = "overwrite_terragrunt"
   }
   config = {
-    region         = include.root.locals.aws_region
+    region         = local.region
     bucket         = local.remote_state_bucket
     key            = "${path_relative_to_include()}/terraform.tfstate"
     # dynamodb_table = "${local.remote_state_bucket}-${path_relative_to_include()}"
@@ -25,4 +29,7 @@ remote_state {
   }
 }
 
-terragrunt_version_constraint = "0.35.8"
+inputs = merge(
+  local.region_vars.locals,
+  local.environment_vars.locals,
+)

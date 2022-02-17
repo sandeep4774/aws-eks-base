@@ -9,7 +9,6 @@ locals {
   ##########
   # Network
   ##########
-  region   = "us-east-1"
   az_count = 3
   allowed_ips = [
     "212.42.109.196/32",
