@@ -14,11 +14,6 @@ output "domain_name" {
   value       = var.domain_name
 }
 
-output "env" {
-  description = "Suffix for the hostname depending on workspace"
-  value       = local.env
-}
-
 output "route53_zone_id" {
   description = "ID of domain zone"
   value       = local.zone_id
