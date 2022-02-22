@@ -10,5 +10,5 @@ locals {
 }
 
 terraform {
-  source = "${get_terragrunt_dir()}/../../../..//layer1-aws"
+  source = "${get_terragrunt_dir()}/../../../../../terraform//layer1-aws"
 }
