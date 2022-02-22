@@ -66,15 +66,26 @@ variable "additional_allowed_ips" {
   description = "IP addresses allowed to connect to private resources"
 }
 
-variable "vpc_id" {}
+variable "vpc_id" {
+  description = "ID of infra VPC"
+}
 
-variable "vpc_cidr" {}
+variable "vpc_cidr" {
+  description = "Default CIDR block for VPC"
+  default     = "10.0.0.0/16"
+}
 
-variable "eks_cluster_id" {}
+variable "eks_cluster_id" {
+  description = "ID of the created EKS cluster."
+}
 
-variable "eks_oidc_provider_arn" {}
+variable "eks_oidc_provider_arn" {
+  description = "ARN of EKS oidc provider"
+}
 
-variable "ssl_certificate_arn" {}
+variable "ssl_certificate_arn" {
+  description = "ARN of ACM SSL certificate"
+}
 
 variable "helm_release_history_size" {
   description = "How much helm releases to store"
@@ -91,6 +102,6 @@ variable "nginx_ingress_ssl_terminator" {
 
 # Cluster autoscaler
 variable "cluster_autoscaler_version" {
-  description = "Version of cluster autoscaler"
+  description = "Version of the cluster autoscaler"
   default     = "v1.21.0"
 }

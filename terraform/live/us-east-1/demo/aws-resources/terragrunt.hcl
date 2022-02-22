@@ -1,8 +1,14 @@
 include "root" {
   path = find_in_parent_folders()
   expose         = true
+  merge_strategy = "deep"
+}
+
+locals {
+  environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
+  name = local.environment_vars.locals.name
 }
 
 terraform {
-  source = "../../../..//layer1-aws"
+  source = "${get_terragrunt_dir()}/../../../..//layer1-aws"
 }
