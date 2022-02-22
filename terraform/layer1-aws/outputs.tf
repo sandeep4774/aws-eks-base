@@ -51,7 +51,7 @@ output "vpc_id" {
 
 output "vpc_cidr" {
   description = "CIDR block of infra VPC"
-  value       = var.cidr
+  value       = var.vpc_cidr
 }
 
 output "vpc_public_subnets" {
@@ -103,7 +103,8 @@ output "eks_config_map_aws_auth" {
 }
 
 output "eks_cluster_id" {
-  value = module.eks.cluster_id
+  description = "ID of the created EKS cluster."
+  value       = module.eks.cluster_id
 }
 
 output "eks_oidc_provider_arn" {

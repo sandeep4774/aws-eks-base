@@ -1,5 +1,5 @@
 locals {
-  cidr_subnets     = [for cidr_block in cidrsubnets(var.cidr, 2, 2, 2, 2) : cidrsubnets(cidr_block, 4, 4, 4, 4)]
+  cidr_subnets     = [for cidr_block in cidrsubnets(var.vpc_cidr, 2, 2, 2, 2) : cidrsubnets(cidr_block, 4, 4, 4, 4)]
   private_subnets  = chunklist(local.cidr_subnets[0], var.az_count)[0]
   public_subnets   = chunklist(local.cidr_subnets[1], var.az_count)[0]
   database_subnets = chunklist(local.cidr_subnets[2], var.az_count)[0]
@@ -12,7 +12,7 @@ module "vpc" {
   version = "3.11.0"
 
   name = local.name
-  cidr = var.cidr
+  cidr = var.vpc_cidr
 
   azs              = local.azs
   private_subnets  = local.private_subnets
